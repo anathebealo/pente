@@ -3,7 +3,13 @@ var EMPTY_MARKER = 0;
 var HUMAN_MARKER = 1; 
 var AI_MARKER = 2;
 
-var makeBoard = function(size){
+var gameState = {
+	board: makeBoard(),
+	human_captures: 0,
+	ai_captures: 0
+};
+
+function makeBoard(size) {
 	if (!size) size = 16;
 	var board = [];
 	for (var i = 0 ; i < size ; i ++){
@@ -16,25 +22,6 @@ var makeBoard = function(size){
 	return board;
 }
 
-var gameState = {
-	board: makeBoard(),
-	human_captures: 0,
-	ai_captures: 0
-};
-
-var currPlayer = HUMAN_MARKER;
-
-var getOtherPlayer = function(marker){
-	if (marker == HUMAN_MARKER){
-		return AI_MARKER;
-	} else return HUMAN_MARKER;
-}
-
-var makeMove = function(i, j){
-	gameState.board[i][j] = currPlayer;
-	currPlayer = getOtherPlayer(currPlayer);
-}
-
 function make_human_move(human_marker, row, col) {
 	for( var i = -1; i<2; i++ ) {
 		for( var j = -1; j<2; j++ ) {
@@ -44,8 +31,8 @@ function make_human_move(human_marker, row, col) {
 					if( row + 3*i > -1 && row + 3*i < gameState.board.length &&
 						col + 3*j > -1 && col + 3*j < gameState.board[row].length) {
 						if( gameState.board[row + 3*i][col + 3*j] == human_marker ) {
-							gameState.board[row + 2*i][col + 2*j] = 0;
-							gameState.board[row + i][col + j] = 0;
+							gameState.board[row + 2*i][col + 2*j] = EMPTY_MARKER;
+							gameState.board[row + i][col + j] = EMPTY_MARKER;
 							gameState.human_captures++;
 						}
 					}
@@ -83,8 +70,8 @@ function make_ai_move() {
 					if( row + 3*i > -1 && row + 3*i < gameState.board.length &&
 						col + 3*j > -1 && col + 3*j < gameState.board[row].length) {
 						if( gameState.board[row + 3*i][col + 3*j] == AI_MARKER ) {
-							gameState.board[row + 2*i][col + 2*j] = 0;
-							gameState.board[row + i][col + j] = 0;
+							gameState.board[row + 2*i][col + 2*j] = EMPTY_MARKER;
+							gameState.board[row + i][col + j] = EMPTY_MARKER;
 							gameState.ai_captures++;
 						}
 					}
