@@ -35,17 +35,22 @@ playBtn
 			d3.select('#playBtn').transition()
 				.text('Reset')
 
-			function addCapContent(plr, text){
+			function addCapContent(plr, num){
 				d3.select(plr)
-				.append('h2')
-				.text(text)		
-				.attr('class', 'capture-text')
-				.style('opacity', '0')
-				.transition()
-				.duration(700)
-				.ease('cubic-out')
-				.style('opacity', '1')	
-				.transition()
+					.append('h2')
+					.text('Player ' + num + ' Captures')		
+					.attr('class', 'capture-text')
+					.style('opacity', '0')
+					.transition()
+					.duration(700)
+					.ease('cubic-out')
+					.style('opacity', '1')	
+					.transition()
+				d3.select(plr)
+					.append('h3')
+					.attr('class', 'capture-text-num')
+					.text('0')
+					.attr('id', 'capture-num-' + num)
 			}
 
 			var plrCaps = d3.selectAll('.cap-area').transition()
@@ -68,7 +73,7 @@ playBtn
 						.ease('cubic-out')
 						.style('background-color', '#7AFF6C')
 						.each('end', function(){
-							addCapContent(this, 'Player 1 Captures')
+							addCapContent(this, '1')
 						})
 
 					d3.select('.cap-area.second').transition()
@@ -77,7 +82,7 @@ playBtn
 						.ease('cubic-out')
 						.style('background-color', '#FF6C6C')
 						.each('end', function(){
-							addCapContent(this, 'Player 2 Captures')
+							addCapContent(this, '2')
 						})
 
 				})
