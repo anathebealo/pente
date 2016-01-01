@@ -111,6 +111,9 @@ var renderBoard = function(){
 		return size;
 	}
 
+	d3.select('#capture-num-1').text(gameState.human_captures)
+	d3.select('#capture-num-2').text(gameState.ai_captures)
+
 	var rows = svg.selectAll('.row')
 		.data(gameState.board)
 		.enter()
