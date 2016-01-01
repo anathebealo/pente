@@ -27,10 +27,10 @@ function make_human_move(row, col) {
 		for( var j = -1; j<2; j++ ) {
 			if( i != 0 || j != 0 ) {
 				print_board(gameState.board);
-				if( count_other_player_in_row(gameState.board, row, col, i, j, human_marker) == 2 ) {
+				if( count_other_player_in_row(gameState.board, row, col, i, j, HUMAN_MARKER) == 2 ) {
 					if( row + 3*i > -1 && row + 3*i < gameState.board.length &&
 						col + 3*j > -1 && col + 3*j < gameState.board[row].length) {
-						if( gameState.board[row + 3*i][col + 3*j] == human_marker ) {
+						if( gameState.board[row + 3*i][col + 3*j] == HUMAN_MARKER ) {
 							gameState.board[row + 2*i][col + 2*j] = EMPTY_MARKER;
 							gameState.board[row + i][col + j] = EMPTY_MARKER;
 							gameState.human_captures++;
@@ -41,7 +41,7 @@ function make_human_move(row, col) {
 		}
 	}
 	console.log("human made a move!"); 
-	gameState.board[row][col] = human_marker;
+	gameState.board[row][col] = HUMAN_MARKER;
 
 	renderBoard();
 	make_ai_move();
