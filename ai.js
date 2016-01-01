@@ -21,8 +21,8 @@ AI is always player 2 **
 /*
 	Driver function to find next move
 */	
-function find_next_move(board, depth) {
-	var new_board = max_value(board, depth).board_state;
+function find_next_move(gameState, depth) {
+	var new_board = max_value(gameState.board, depth).board_state;
 	console.log("new board");
 	print_board(new_board);
 	return new_board; 
@@ -192,8 +192,7 @@ function copy_array(board) {
 	Higher return values means better board state for the whichever player for whom it is scored.
 */
 function heuristic(board, player_num) {
-	// TODO: THIS IS DUMB -- MAKE IT BETTER PLEASEEEE
-	if(){}
+	// TODO: THIS IS DUMB -- MAKE IT BETTER PLEASEEE
 
 	var ret_val = 0;
 	if(board[0][0] == 2) {
