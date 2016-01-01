@@ -4,7 +4,6 @@ console.log('playBtn', playBtn)
 playBtn
 	.style('cursor', 'pointer')
 	.on('mouseover', function(){
-		console.log('hi')
 		d3.select(this).transition()
 			.style('background-color', 'red')
 			.style('width', 420)
@@ -35,6 +34,14 @@ playBtn
 				.style('padding-top', '0')
 			d3.select('#playBtn').transition()
 				.text('Reset')
+
+			d3.selectAll('.cap-area').transition()
+				.duration(700)
+				.ease('cubic-out')
+				.style('height', boardSize + boardOffset*2)
+				.transition()
+				.style('width', '150px')
+
 			firstPlay = false;
 		} else {
 			

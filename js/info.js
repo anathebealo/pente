@@ -116,7 +116,7 @@ var animateInfoSignIn = function(d){
 
 }
 
-var animateInfoSignOut = function(){
+var animateInfoSignOut = function(force){
 
 
 	var top = info[0][0].offsetTop;
@@ -124,7 +124,8 @@ var animateInfoSignOut = function(){
 	var mousey = d3.mouse(d3.select('body').node())[1]
 	
 	if (top <= mousey && mousey <= bottom || !infoSignIn || animatingInfoSignOut) {
-		return
+		if (!force) // silly hardcoded check. I don't give a rats bum.
+			return
 	}
 
 	if (!animatingInfoSignOut)
@@ -155,9 +156,15 @@ info.transition()
 
 infoSign
 	.style('cursor', 'pointer')
-	.on('click', animateInfoSignIn)
+	.on('click', function(){
+		if (infoSignIn){
+			animateInfoSignOut(true);
+		} else {
+			animateInfoSignIn();
+		}
+	})
 
-	
+
 // info
 //  	.on('mouseout', animateInfoSignOut)
 d3.select('body').on('mousemove', animateInfoSignOut);

@@ -1,5 +1,5 @@
 var makeBoard = function(size){
-	if (!size) size = 6;
+	if (!size) size = 16;
 	var board = [];
 	for (var i = 0 ; i < size ; i ++){
 		var row = [];

@@ -40,6 +40,34 @@ br {
 	margin-left: 0%;
 }
 
+
+#gameboard {
+	display: inline-block;
+}
+.cap-area{
+	width: 0px;
+	background-color: #F84E56;
+	vertical-align: top;
+	display: inline-block;
+}
+
+.cap-area.first {
+	/*background-color: purple;*/
+}
+
+.cap-area.second {
+	/*background-color: red;*/
+}
+/*
+.cap-area #plr1Caps {
+	background-color: green;
+	border-style: solid;
+}
+
+.cap-area #plr2Caps {
+	background-color: red;
+}*/
+
 #penteSpan{
 	display: inline
 }

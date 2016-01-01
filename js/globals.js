@@ -1,7 +1,7 @@
 
 var gameBoard = d3.select('#gameboard');
-gameBoard
-	.style('width', '100%')
+// gameBoard
+	// .style('width', '100%')
 
 var firstPlay = true;
 var lineSpace = 32;
