@@ -11,7 +11,7 @@ var svg = gameBoard.append('svg')
 
 //lines are in the form of horizontal, then vertical
 var lines = [[]];
-boardState.forEach(function(row, index){
+gameState.board.forEach(function(row, index){
 
 	var line = [];
 	line.push({
@@ -64,8 +64,8 @@ var renderLines = function(callBack){
 				var x = ((d[0].x+d[1].x)/2) / lineSpace;
 				var y = ((d[0].y+d[1].y)/2) / lineSpace;
 
-				var xD = boardState.length/2 - x;
-				var yD = boardState.length/2 - y;
+				var xD = gameState.board.length/2 - x;
+				var yD = gameState.board.length/2 - y;
 				var dist = Math.sqrt((xD*xD) + (yD*yD));
 				return dist * 50;
 				
@@ -86,7 +86,7 @@ var renderLines = function(callBack){
 var renderBoard = function(){
 
 	var getState = function(d, i, j){
-		var state = boardState[i][j];
+		var state = gameState.board[i][j];
 		return state;
 	}
 
@@ -112,7 +112,7 @@ var renderBoard = function(){
 	}
 
 	var rows = svg.selectAll('.row')
-		.data(boardState)
+		.data(gameState.board)
 		.enter()
 		.append('g')
 		.attr('class', 'row')
@@ -131,13 +131,13 @@ var renderBoard = function(){
 		.ease('elastic')
 		.duration(500)
 		.style('fill', function(d, i){
-			var y = Math.floor(i/boardState.length);
-			var x = (i%boardState.length);
+			var y = Math.floor(i/gameState.board.length);
+			var x = (i%gameState.board.length);
 			return getColor(d, x, y);
 		})
 		.attr('r', function(d, i){
-			var y = Math.floor(i/boardState.length);
-			var x = (i%boardState.length);
+			var y = Math.floor(i/gameState.board.length);
+			var x = (i%gameState.board.length);
 			return getSize(d, x, y);
 		})
 	var cells = cellData.enter()
@@ -158,8 +158,8 @@ var renderBoard = function(){
 
 	cells.transition()
 		.delay(function(d, i, j){ 
-			var xD = boardState.length/2 - i;
-			var yD = boardState.length/2 - j;
+			var xD = gameState.board.length/2 - i;
+			var yD = gameState.board.length/2 - j;
 			var dist = Math.sqrt((xD*xD) + (yD*yD));
 			return dist * cellEntranceDelay;
 		})
@@ -193,9 +193,9 @@ var renderBoard = function(){
 		})
 		.on('click', function(d, i, j){
 			if (getState(d, i, j) == 0){
-				//boardState[i][j] = HUMAN_MARKER;
+				//gameState.board[i][j] = HUMAN_MARKER;
 				
-				make_human_move(boardState, HUMAN_MARKER, i, j);
+				make_human_move(gameState.board, HUMAN_MARKER, i, j);
 				d3.select(this).transition()
 					.ease("cubic-out")
 					.duration(500)
