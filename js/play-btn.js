@@ -36,7 +36,17 @@ playBtn
 				.text('Reset')
 
 			function addCapContent(plr, num){
-				d3.select(plr)
+				var color = num == '1' ? '#7AFF6C' : '#FF6C6C';
+				var colorGray = num == '1' ? '#B9FFB2' : '#FFB2B2';
+
+
+				// d3.select(plr)
+				plr.transition()
+					.duration(1400)
+					.ease('cubic-out')
+					.style('background-color', color)
+
+				plr
 					.append('h2')
 					.text('Player ' + num + ' Captures')		
 					.attr('class', 'capture-text')
@@ -44,12 +54,15 @@ playBtn
 					.transition()
 					.duration(700)
 					.ease('cubic-out')
+					.style('text-shadow', '0px 0px 18px ' + color)
 					.style('opacity', '1')	
 					.transition()
-				d3.select(plr)
+				// d3.select(plr)
+				plr
 					.append('h3')
 					.attr('class', 'capture-text-num')
 					.text('0')
+					.style('color', 'black')
 					.attr('id', 'capture-num-' + num)
 			}
 
@@ -67,23 +80,30 @@ playBtn
 				.style('border-bottom-left-radius', function(d, i){return i == 0 ? '24px' : 0})
 				.style('border-top-right-radius', function(d, i){return i == 1 ? '24px' : 0})
 				.style('border-bottom-right-radius', function(d, i){return i == 1 ? '24px' : 0})
-				.each('end', function(){
-					d3.select('.cap-area.first').transition()
-						.duration(800)
-						.ease('cubic-out')
-						.style('background-color', '#7AFF6C')
-						.each('end', function(){
-							addCapContent(this, '1')
-						})
+				.each('end', function(d, i){
+					// d3.select('.cap-area.first').transition()
+					// 	.duration(800)
+					// 	.ease('cubic-out')
+					// 	.style('background-color', '#7AFF6C')
+					// 	.each('end', function(){
+					// 		addCapContent(this, '1')
+					// 	})
 
-					d3.select('.cap-area.second').transition()
+					// d3.select('.cap-area.second').transition()
 						
-						.duration(800)
-						.ease('cubic-out')
-						.style('background-color', '#FF6C6C')
-						.each('end', function(){
-							addCapContent(this, '2')
-						})
+					// 	// .duration(800)
+					// 	// .ease('cubic-out')
+					// 	// .style('background-color', '#FF6C6C')
+					// 	.each('end', function(){
+					// 		addCapContent(this, '2')
+					// 	})
+					if (i == 0){
+						addCapContent(d3.select('.cap-area.first'), '1')
+						
+					} else {
+						addCapContent(d3.select('.cap-area.second'), '2')
+						
+					}
 
 				})
 

@@ -163,6 +163,15 @@ infoSign
 			animateInfoSignIn();
 		}
 	})
+	// .on('mouseenter', function(){
+	// 	infoSign.transition()
+	// 		.style('font-size', '72px')
+	// })
+	// .on('mouseleave', function(){
+	// 	infoSign.transition()
+	// 		.style('font-size', '64px')
+	// })
+
 
 
 // info
