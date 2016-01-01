@@ -33,22 +33,28 @@ br {
 	/*padding-top: 0;*/
 	padding: 4px;
 	margin-top: -30;
-	background-color: #FF4B4B;
+	background-color: #4B75FF;
 	border-style: solid;
 
 	width: 400px;
 	margin-left: 0%;
 }
 
+.capture-text {
+	font-family: 'Voltaire', sans-serif;
+	text-decoration: underline;
+	cursor: default;
+}
 
 #gameboard {
 	display: inline-block;
 }
 .cap-area{
 	width: 0px;
-	background-color: #F84E56;
+	background-color: #DDDDDD;
 	vertical-align: top;
 	display: inline-block;
+
 }
 
 .cap-area.first {
