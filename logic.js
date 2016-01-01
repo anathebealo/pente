@@ -66,6 +66,12 @@ function make_ai_move() {
 	var wincheck = check_for_win(gameState);
 	if( wincheck.isWin ) {
 		console.log("Winner: " + wincheck.winner + ", reason: " + wincheck.reason);
+		if (wincheck.winner == AI_MARKER){
+			winMsg.showRedMsg('The Computer Won. ' + wincheck.reason)
+		} else if (wincheck.winner == HUMAN_MARKER){
+			winMsg.showGreenMsg('You Won! ' + wincheck.reason)
+		}
+
 	}
 
 	renderBoard();
