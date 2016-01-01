@@ -1,3 +1,8 @@
+//TODO: use marker values from globals.js
+var EMPTY_MARKER = 0;
+var HUMAN_MARKER = 1; 
+var AI_MARKER = 2;
+
 var makeBoard = function(size){
 	if (!size) size = 16;
 	var board = [];
@@ -11,21 +16,22 @@ var makeBoard = function(size){
 	return board;
 }
 
-//TODO: use marker values from globals.js
-var HUMAN_MARKER = 1; 
-var AI_MARKER = 2;
+var gameState = {
+	board: makeBoard(),
+	human_captures: 0,
+	ai_captures: 0
+};
 
-var boardState = makeBoard();
 var currPlayer = HUMAN_MARKER;
 
-var getOtherPlayer = function(playerNum){
-	if (playerNum == HUMAN_MARKER){
+var getOtherPlayer = function(marker){
+	if (marker == HUMAN_MARKER){
 		return AI_MARKER;
 	} else return HUMAN_MARKER;
 }
 
 var makeMove = function(i, j){
-	boardState[i][j] = currPlayer;
+	gameState.board[i][j] = currPlayer;
 	currPlayer = getOtherPlayer(currPlayer);
 }
 
@@ -47,7 +53,7 @@ function make_human_move(board, human_marker, row, col) {
 	}
 	console.log("human made a move!"); 
 	board[row][col] = human_marker;
-	print_board(boardState);
+	print_board(gameState.board);
 
 	renderBoard();
 	make_ai_move(board, AI_MARKER);

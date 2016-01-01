@@ -19,10 +19,6 @@ AI is always player 2 ***
 
 */
 
-//TODO: use marker values from globals.js
-var HUMAN_MARKER = 1; 
-var AI_MARKER = 2;
-
 /*
 	Driver function to find next move
 */	
