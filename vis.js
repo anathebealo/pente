@@ -195,7 +195,7 @@ var renderBoard = function(){
 			if (getState(d, i, j) == 0){
 				//gameState.board[i][j] = HUMAN_MARKER;
 				
-				make_human_move(HUMAN_MARKER, i, j);
+				make_human_move(i, j);
 				d3.select(this).transition()
 					.ease("cubic-out")
 					.duration(500)
