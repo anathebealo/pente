@@ -248,7 +248,13 @@ function copy_game(gameState) {
 	Higher return values means better board state for the whichever player for whom it is scored.
 */
 function heuristic(gameState, player_num) {
-	// TODO: THIS IS DUMB -- MAKE IT BETTER PLEASEEE
+	if( player_num == HUMAN_MARKER ) {
+
+
+	} else {
+
+
+	}
 
 	var ret_val = 0;
 	if(gameState.board[0][0] == 2) {
@@ -259,8 +265,9 @@ function heuristic(gameState, player_num) {
 		ret_val = -100;
 	}
 
-	return ret_val; 
+	return ret_val;
 }
+
 
 /*
 	returns object with win conditions 
@@ -270,7 +277,35 @@ function heuristic(gameState, player_num) {
 */
 function check_for_win(gameState) {
 
-	var tempWin = {};
+	WIN = { 
+		isWin: false,
+		winner: EMPTY_MARKER,
+		reason: "none"
+	};
+
+	var fiveInRow = is_five_in_row(gameState.board);
+	if( fiveInRow.isFive ) {
+		if( gameState.human_captures == 5 ) {
+			WIN = {
+				isWin: true,
+				winner: HUMAN_MARKER,
+				reason: "five in row and captures"
+			};
+		} else if( gameState.ai_captures == 5 ) {
+			WIN = {
+				isWin: true,
+				winner: AI_MARKER,
+				reason: "five in row and captures"
+			};
+		}
+
+		WIN = {
+			isWin: true,
+			winner: fiveInRow.winner,
+			reason: "five"
+		};
+
+	}
 
 	if( gameState.human_captures == 5 ) {
 		WIN = {
@@ -278,7 +313,6 @@ function check_for_win(gameState) {
 			winner: HUMAN_MARKER,
 			reason: "captures"
 		};
-		return WIN;
 
 	} else if( gameState.ai_captures == 5 ) {
 		WIN = {
@@ -286,27 +320,7 @@ function check_for_win(gameState) {
 			winner: AI_MARKER,
 			reason: "captures"
 		};
-		return WIN;
-
 	}
-
-	var fiveInRow = is_five_in_row(gameState.board);
-	if( fiveInRow.isFive ) {
-		WIN = {
-			isWin: true,
-			winner: fiveInRow.winner,
-			reason: "five"
-		};
-		return WIN;
-
-	}
-
-	WIN = { 
-		isWin: false,
-		winner: EMPTY_MARKER,
-		reason: "none"
-	};
-	return WIN;
 }
 
 /*
