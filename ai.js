@@ -216,7 +216,7 @@ function count_player_in_row(board, row, col, x_direction, y_direction, player_n
 			if( board[row + x_direction*player_in_row_count][col + y_direction*player_in_row_count] == player_num){
 				player_in_row_count++;
 			} else {
-				return player_in_row_count - 1;
+				return player_in_row_count;
 			}
 
 		} else {
@@ -329,7 +329,7 @@ function check_for_win(gameState) {
 		winner {1 or 2}
 */
 function is_five_in_row(board) {
-	var num_in_row;
+	var num_in_row = 0;
 
 	for(var row = 0; row<board.length; row++) {
 		for(var col = 0; col<board[row].length; col++) {

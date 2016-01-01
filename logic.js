@@ -36,7 +36,9 @@ function make_human_move(row, col) {
 	renderBoard();
 	
 	didWin();
-	make_ai_move();
+	if (!WIN.isWin){
+		make_ai_move();
+	}
 }
 
 function make_ai_move() {
