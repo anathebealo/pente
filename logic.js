@@ -26,7 +26,6 @@ function make_human_move(row, col) {
 	for( var i = -1; i<2; i++ ) {
 		for( var j = -1; j<2; j++ ) {
 			if( i != 0 || j != 0 ) {
-				print_board(gameState.board);
 				if( count_other_player_in_row(gameState.board, row, col, i, j, HUMAN_MARKER) == 2 ) {
 					if( row + 3*i > -1 && row + 3*i < gameState.board.length &&
 						col + 3*j > -1 && col + 3*j < gameState.board[row].length) {
@@ -48,13 +47,13 @@ function make_human_move(row, col) {
 }
 
 function make_ai_move() {
-	var new_board = find_next_move(gameState, 2);
+	var new_game = find_next_move(gameState, 2);
 
 	var row;
 	var col;
-	for( var i = 0; i<gameState.board.length; i++) {
-		for( var j = 0; j<gameState.board[i].length; j++) {
-			if(new_board[i][j] != gameState.board[i][j] && new_board[i][j] == AI_MARKER) {
+	for( var i = 0; i<new_game.board.length; i++) {
+		for( var j = 0; j<new_game.board[i].length; j++) {
+			if(new_game.board[i][j] != gameState.board[i][j] && new_game.board[i][j] == AI_MARKER) {
 				row = i; 
 				col = j;
 				break;
