@@ -197,6 +197,8 @@ var renderBoard = function(){
 				.attr('r', getSize(d, i, j))
 		})
 		.on('click', function(d, i, j){
+			if (WIN.isWin) return;
+
 			if (getState(d, i, j) == 0){
 				//gameState.board[i][j] = HUMAN_MARKER;
 				
