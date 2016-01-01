@@ -51,13 +51,17 @@ playBtn
 			var plrCaps = d3.selectAll('.cap-area').transition()
 				.duration(700)
 				.ease('cubic-out')
-				.style('height', boardSize + boardOffset*2)
+				.style('height', (boardSize + boardOffset*2) / 4) 
 				.transition()
 				.style('width', '250px')
 				.style('border-style', 'solid')
 				.style('border-width', '2px')
 				.style('border-color', 'gray')
-				.style('margin', '0px 50px')
+				.style('margin', '0px 20px')
+				.style('border-top-left-radius', function(d, i){ return i == 0 ? '24px' : 0})
+				.style('border-bottom-left-radius', function(d, i){return i == 0 ? '24px' : 0})
+				.style('border-top-right-radius', function(d, i){return i == 1 ? '24px' : 0})
+				.style('border-bottom-right-radius', function(d, i){return i == 1 ? '24px' : 0})
 				.each('end', function(){
 					d3.select('.cap-area.first').transition()
 						.duration(800)
@@ -68,6 +72,7 @@ playBtn
 						})
 
 					d3.select('.cap-area.second').transition()
+						
 						.duration(800)
 						.ease('cubic-out')
 						.style('background-color', '#FF6C6C')
