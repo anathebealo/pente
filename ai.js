@@ -193,6 +193,8 @@ function copy_array(board) {
 */
 function heuristic(board, player_num) {
 	// TODO: THIS IS DUMB -- MAKE IT BETTER PLEASEEEE
+	if(){}
+
 	var ret_val = 0;
 	if(board[0][0] == 2) {
 		return 100; 
