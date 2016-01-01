@@ -115,15 +115,19 @@ playBtn
 			}
 
 			var delay = 80;
-			boardState = makeBoard();
+			gameState = {
+				board: makeBoard(),
+				human_captures: 0,
+				ai_captures: 0
+			};
 			// cellEaseFunc = easeFunc;
 			svg.selectAll('.cell').transition()
 				.delay(function(d, i, j){ 
-					var x = Math.floor(i/boardState.length);
-					var y = (i%boardState.length);
+					var x = Math.floor(i/gameState.board.length);
+					var y = (i%gameState.board.length);
 					
-					var xD = boardState.length/2 - x;
-					var yD = boardState.length/2 - y;
+					var xD = gameState.board.length/2 - x;
+					var yD = gameState.board.length/2 - y;
 					var dist = Math.sqrt((xD*xD) + (yD*yD));
 					return dist * delay;
 				})
@@ -132,7 +136,7 @@ playBtn
 				.ease('linear')
 				.each('end', function(d, i){
 					d3.select(this).remove();
-					if (i == boardState.length * boardState.length -1){
+					if (i == gameState.board.length * gameState.board.length -1){
 						d3.selectAll('.row').remove();
 						cellEntranceDelay = delay
 						renderBoard();
