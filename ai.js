@@ -220,7 +220,7 @@ function count_player_in_row(board, row, col, x_direction, y_direction, player_n
 			}
 
 		} else {
-			return player_in_row_count - 1;
+			return player_in_row_count;
 		}
 	}
 }
