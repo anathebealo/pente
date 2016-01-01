@@ -1,5 +1,13 @@
 //language = Javescript.
 
+/*
+ 
+BOARD OBJECT: 
+	board -- double array
+	p1 captures
+	p2 captures
+*/
+
 /* 
 given: board/state -- state is a board? double int array. 
 given: color to maximize score
@@ -11,25 +19,12 @@ AI is always player 2 ***
 
 */
 
-var AI_PLAYER = 2;
 var HUMAN_PLAYER = 1; 
+var AI_PLAYER = 2;
 
-main();
-
-function main() {
-	//board = [[0,0,0,2], [0,0,1,1], [0,0,0,1], [2,1,1,0]];
-	//make_ai_move(find_next_move(board, 2)));
-}
-
-function return_game_obj(in_board, in_captures_p1_has, in_captures_p2_has, in_just_captured) {
-	return {
-				board: in_board, 
-				captures_p1_has: in_captures_p1_has, 
-				captures_p2_has: in_captures_p2_has, 
-				just_captured: in_just_captured
-			};
-}
-
+/*
+	Driver function to find next move
+*/	
 function find_next_move(board, depth) {
 	var new_board = max_value(board, depth).board_state;
 	console.log("new board");
@@ -37,7 +32,10 @@ function find_next_move(board, depth) {
 	return new_board; 
 }
 
-//max looks to maximize player 2's moves
+/*
+	Function contributing to minmax algorithm 
+	max looks to maximize player 2's moves
+*/
 function max_value(board, depth) {
 	if( depth == 0 ) {
 		var ret_val = {
@@ -65,7 +63,10 @@ function max_value(board, depth) {
 	}
 }
 
-//min looks to maximize player 1's moves
+/*
+	Function contributing to minmax algorithm 
+	min looks to maximize player 1's moves
+*/
 function min_value(board, depth) {
 	if( depth == 0 ) {
 		var ret_val = {
@@ -92,16 +93,10 @@ function min_value(board, depth) {
 		};
 	}
 }
-function print_board(board){
-	var string_to_print = ""; 
-	for( var i = 0; i<board.length; i++ ) {
-		for( var j = 0; j<board[i].length; j++ ) {
-			string_to_print += board[j][i] + ", "; 
-		} 
-		console.log(i + ": " + string_to_print)
-		string_to_print = ""; 
-	}
-}
+
+/*
+	Finds all moves that a player can make on a given board state. Returns a list of all of them.
+*/
 function find_all_moves_on_board(board, player_num) {
 	var board_states = [];
 	var count = 0;
@@ -117,10 +112,15 @@ function find_all_moves_on_board(board, player_num) {
 	return board_states;
 }
 
+/*
+	This makes a move on a given board state -- if the move made is a capture, it updates for that as well.
+	Returns the board state
+*/
 function make_move(board, player_num, row, col) {
 	for( var i = -1; i<2; i++ ) {
 		for( var j = -1; j<2; j++ ) {
 			if( i != 0 || j != 0 ) {
+				//if there are two pieces of the other player's in a row and then your own piece, then update to reflect the capture.
 				if( count_other_player_in_row(board, row, col, i, j, player_num) == 2 ) {
 					if( row + 3*i > -1 && row + 3*i < board.length &&
 						col + 3*j > -1 && col + 3*j < board[row].length) {
@@ -138,6 +138,19 @@ function make_move(board, player_num, row, col) {
 	return board;
 }
 
+
+/*
+	Returns the number of pieces of the opposite color that are in a row in one direction from a starting piece
+
+	example: 
+
+	board = 
+	x 0 0 - 
+	0 x x -
+	0 - - -
+
+	want to count 0's in direction 0, 1 from spot (0,0) -- it will return 2.	
+*/
 function count_other_player_in_row(board, row, col, i, j, player_num) {
 	var player_in_row_count = 1;
 	var other_player = 0; 
@@ -165,6 +178,10 @@ function count_other_player_in_row(board, row, col, i, j, player_num) {
 	return player_in_row_count - 1;
 }
 
+/*
+	This returns a deep copy of the game board to prevent updating the 'live' board version
+	Returns the new board
+*/
 function copy_array(board) {
 	var new_array = [];
 	for( var i = 0; i<board.length; i++ ) {
@@ -174,6 +191,11 @@ function copy_array(board) {
 	return new_array;
 }
 
+
+/*
+	This function outputs a value for the current state of the board. 
+	Higher return values means better board state for the whichever player for whom it is scored.
+*/
 function heuristic(board, player_num) {
 	// TODO: THIS IS DUMB -- MAKE IT BETTER PLEASEEEE
 	var ret_val = 0;
@@ -186,9 +208,20 @@ function heuristic(board, player_num) {
 	}
 
 	return ret_val; 
-
-
 }
 
+/*
+	Prints the gameboard to console 
+*/
+function print_board(board){
+	var string_to_print = ""; 
+	for( var i = 0; i<board.length; i++ ) {
+		for( var j = 0; j<board[i].length; j++ ) {
+			string_to_print += board[j][i] + ", "; 
+		} 
+		console.log(i + ": " + string_to_print)
+		string_to_print = ""; 
+	}
+}
 
 
