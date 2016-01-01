@@ -22,7 +22,7 @@ function makeBoard(size) {
 	return board;
 }
 
-function make_human_move(human_marker, row, col) {
+function make_human_move(row, col) {
 	for( var i = -1; i<2; i++ ) {
 		for( var j = -1; j<2; j++ ) {
 			if( i != 0 || j != 0 ) {

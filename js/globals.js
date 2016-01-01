@@ -11,6 +11,7 @@ var playerColor = 'green';
 var cpuColor = 'red';
 var cellEaseFunc = 'linear'
 var cellEntranceDelay = 160;
+
 var EMPTY_MARKER = 0;
 var HUMAN_MARKER = 1; 
 var AI_MARKER = 2;
