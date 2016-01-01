@@ -33,8 +33,9 @@ function make_human_move(row, col) {
 	}
 	console.log("human made a move!"); 
 	gameState.board[row][col] = HUMAN_MARKER;
-
 	renderBoard();
+	
+	didWin();
 	make_ai_move();
 }
 
@@ -64,16 +65,23 @@ function make_ai_move() {
 	}
 
 	gameState.board[row][col] = AI_MARKER;
-	var wincheck = check_for_win(gameState);
-	if( wincheck.isWin ) {
-		console.log("Winner: " + wincheck.winner + ", reason: " + wincheck.reason);
-		if (wincheck.winner == AI_MARKER){
-			winMsg.showRedMsg('The Computer Won. ' + wincheck.reason)
-		} else if (wincheck.winner == HUMAN_MARKER){
-			winMsg.showGreenMsg('You Won! ' + wincheck.reason)
-		}
+	renderBoard();
+	didWin();
+}
 
+function didWin() {
+	if(WIN.isWin) {
+		return;
+	}
+	print_game(gameState);
+	check_for_win(gameState);
+	if( WIN.isWin ) {
+		console.log("Winner: " + WIN.winner + ", reason: " + WIN.reason);
+		if (WIN.winner == AI_MARKER){
+			winMsg.showRedMsg('The Computer Won. ' + WIN.reason)
+		} else if (WIN.winner == HUMAN_MARKER){
+			winMsg.showGreenMsg('You Won! ' + WIN.reason)
+		}
 	}
 
-	renderBoard();
 }
