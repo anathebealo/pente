@@ -1,3 +1,8 @@
+body {
+	text-align:center; 
+	vertical-align: middle;
+}
+
 #pente{
 	font-family: 'Voltaire', sans-serif;
 	font-size: 88;
@@ -40,6 +45,7 @@ br {
 }
 #title{
 	padding-top: 15%;
+	cursor: default;
 }
 
 #info{
@@ -47,6 +53,8 @@ br {
 	opacity: 0;
 	padding-top: 15px;
 	color: gray;
+	z-index: 2; 
+	height: 200;
 }
 
 #infoContent{
@@ -60,7 +68,7 @@ br {
 	margin: auto;
 	font-size: 24;
 	width: 400px;
-
+	z-index: -2;
 }
 
 button {

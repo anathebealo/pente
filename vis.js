@@ -155,7 +155,8 @@ info.transition()
 	.style('opacity', 1)
 
 infoSign
-	.on('mouseover', animateInfoSignIn)
+	.style('cursor', 'pointer')
+	.on('click', animateInfoSignIn)
 // info
 //  	.on('mouseout', animateInfoSignOut)
 d3.select('body').on('mousemove', animateInfoSignOut);
