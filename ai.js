@@ -19,8 +19,9 @@ AI is always player 2 ***
 
 */
 
-var HUMAN_PLAYER = 1; 
-var AI_PLAYER = 2;
+//TODO: use marker values from globals.js
+var HUMAN_MARKER = 1; 
+var AI_MARKER = 2;
 
 /*
 	Driver function to find next move
@@ -39,14 +40,14 @@ function find_next_move(board, depth) {
 function max_value(board, depth) {
 	if( depth == 0 ) {
 		var ret_val = {
-			heuristic_val: heuristic(board, AI_PLAYER),
+			heuristic_val: heuristic(board, AI_MARKER),
 			board_state: board
 		};
 		return ret_val;
 	} else {
 		var alpha = Number.NEGATIVE_INFINITY; 
 		var best_board = undefined;
-		var all_boards = find_all_moves_on_board(board, AI_PLAYER);
+		var all_boards = find_all_moves_on_board(board, AI_MARKER);
 		
 		all_boards.forEach(function(next_board){
 			var min_val = min_value(next_board, depth -1);
@@ -70,14 +71,14 @@ function max_value(board, depth) {
 function min_value(board, depth) {
 	if( depth == 0 ) {
 		var ret_val = {
-			heuristic_val: heuristic(board, HUMAN_PLAYER),
+			heuristic_val: heuristic(board, HUMAN_MARKER),
 			board_state: board
 		};
 		return ret_val;
 	} else {
 		var beta = Infinity;
 		var best_board = undefined;
-		var all_boards = find_all_moves_on_board(board, HUMAN_PLAYER);
+		var all_boards = find_all_moves_on_board(board, HUMAN_MARKER);
 		
 		all_boards.forEach(function(next_board){
 			var max_val = max_value(next_board, depth - 1);
@@ -138,7 +139,6 @@ function make_move(board, player_num, row, col) {
 	return board;
 }
 
-
 /*
 	Returns the number of pieces of the opposite color that are in a row in one direction from a starting piece
 
@@ -155,10 +155,10 @@ function count_other_player_in_row(board, row, col, i, j, player_num) {
 	var player_in_row_count = 1;
 	var other_player = 0; 
 
-	if(player_num == HUMAN_PLAYER) {
-		other_player = AI_PLAYER;
+	if(player_num == HUMAN_MARKER) {
+		other_player = AI_MARKER;
 	} else {
-		other_player = HUMAN_PLAYER;
+		other_player = HUMAN_MARKER;
 	}
 
 	while( true ){
