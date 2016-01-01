@@ -172,6 +172,8 @@ var renderBoard = function(){
 
 	cells
 		.on('mouseover', function(d, i, j){
+			if (WIN.isWin) return;
+
 			if (getState(d, i, j) == 0){
 				d3.select(this).transition()
 					.ease("elastic")

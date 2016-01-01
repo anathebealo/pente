@@ -2,6 +2,7 @@
 var EMPTY_MARKER = 0;
 var HUMAN_MARKER = 1; 
 var AI_MARKER = 2;
+var WIN = {};
 
 var gameState = {
 	board: makeBoard(),

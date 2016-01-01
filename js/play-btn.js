@@ -120,6 +120,9 @@ playBtn
 				human_captures: 0,
 				ai_captures: 0
 			};
+			winMsg.hideMsg()
+			WIN = {}
+
 			// cellEaseFunc = easeFunc;
 			svg.selectAll('.cell').transition()
 				.delay(function(d, i, j){ 

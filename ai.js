@@ -269,34 +269,44 @@ function heuristic(gameState, player_num) {
 		reason {"captures" or "five"}
 */
 function check_for_win(gameState) {
+
+	var tempWin = {};
+
 	if( gameState.human_captures == 5 ) {
-		return {
+		WIN = {
 			isWin: true,
 			winner: HUMAN_MARKER,
 			reason: "captures"
 		};
+		return WIN;
+
 	} else if( gameState.ai_captures == 5 ) {
-		return {
+		WIN = {
 			isWin: true,
 			winner: AI_MARKER,
 			reason: "captures"
 		};
+		return WIN;
+
 	}
 
 	var fiveInRow = is_five_in_row(gameState.board);
 	if( fiveInRow.isFive ) {
-			return {
-				isWin: true,
-				winner: fiveInRow.winner,
-				reason: "five"
-			};
+		WIN = {
+			isWin: true,
+			winner: fiveInRow.winner,
+			reason: "five"
+		};
+		return WIN;
+
 	}
 
-	return { 
+	WIN = { 
 		isWin: false,
 		winner: EMPTY_MARKER,
 		reason: "none"
 	};
+	return WIN;
 }
 
 /*
