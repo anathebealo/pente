@@ -46,6 +46,7 @@ br {
 	cursor: default;
 	margin: 0px auto;
 	padding: 0px auto;
+	margin-top: 6px;
 }
 
 .capture-text-num {
@@ -55,12 +56,18 @@ br {
 	margin: 0px auto;
 	padding: 0px auto;
 	margin-top: 12px;
-	text-shadow: 0px 0px 1px gray;
 }
 
 #gameboard {
 	display: inline-block;
 }
+
+#win {
+	height: 60px;
+	background-color: #14D300;
+	margin: 12px 0px;
+}
+
 .cap-area{
 	width: 0px;
 	background-color: #DDDDDD;
@@ -102,6 +109,7 @@ br {
 	z-index: 2; 
 	height: 200;
 }
+
 
 #infoContent{
 	font-family: 'Titillium Web', sans-serif;
