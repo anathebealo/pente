@@ -22,8 +22,8 @@ AI is always player 2 **
 	Driver function to find next move
 */	
 function find_next_move(gameState, depth) {
-	var new_game = max_value(gameState, depth).game_state;
-	return new_game; 
+	var next_move = max_value(gameState, depth).game_state;
+	return next_move; 
 }
 
 /*
@@ -106,6 +106,24 @@ function find_all_moves_on_board(gameState, player_num) {
 	return game_states;
 }
 
+function check_for_and_update_capture(gameState, player_num, row, col, x_direction, y_direction) {
+	//if there are two pieces of the other player's in a row and then your own piece, then update to reflect the capture.
+	if( count_other_player_in_row(gameState.board, row, col, x_direction, y_direction, player_num) == 2 ) {
+		if( row + 3*x_direction > -1 && row + 3*x_direction < gameState.board.length &&
+			col + 3*y_direction > -1 && col + 3*y_direction < gameState.board[row].length) {
+			if( gameState.board[row + 3*x_direction][col + 3*y_direction] == player_num ) {
+				gameState.board[row + 2*x_direction][col + 2*y_direction] = EMPTY_MARKER;
+				gameState.board[row + x_direction][col + y_direction] = EMPTY_MARKER;
+				if(player_num == 1) {
+					gameState.human_captures++;
+				} else {
+					gameState.ai_captures++;
+				}
+			}
+		}
+	}
+}
+
 /*
 	This makes a move on a given board state -- if the move made is a capture, it updates for that as well.
 	Returns the board state
@@ -114,21 +132,7 @@ function make_move(gameState, player_num, row, col) {
 	for( var i = -1; i<2; i++ ) {
 		for( var j = -1; j<2; j++ ) {
 			if( i != 0 || j != 0 ) {
-				//if there are two pieces of the other player's in a row and then your own piece, then update to reflect the capture.
-				if( count_other_player_in_row(gameState.board, row, col, i, j, player_num) == 2 ) {
-					if( row + 3*i > -1 && row + 3*i < gameState.board.length &&
-						col + 3*j > -1 && col + 3*j < gameState.board[row].length) {
-						if( gameState.board[row + 3*i][col + 3*j] == player_num ) {
-							gameState.board[row + 2*i][col + 2*j] = EMPTY_MARKER;
-							gameState.board[row + i][col + j] = EMPTY_MARKER;
-							if(player_num == 1) {
-								gameState.human_captures++;
-							} else {
-								gameState.ai_captures++;
-							}
-						}
-					}
-				}
+				check_for_and_update_capture(gameState, player_num, row, col, i, j);
 			}
 		}
 	}
@@ -148,8 +152,19 @@ function make_move(gameState, player_num, row, col) {
 	0 - - -
 
 	want to count 0's in direction 0, 1 from spot (0,0) -- it will return 2.	
+
+	inputs: 
+		board:  		gameboard
+		row: 			i value we are starting from
+		col: 			j value we are starting from
+		x_direction: 	direction along rows
+		y_direction: 	direction along columns
+		player_num: 	color pieces we are counting
+
+	output: 
+		number in row
 */
-function count_other_player_in_row(board, row, col, i, j, player_num) {
+function count_other_player_in_row(board, row, col, x_direction, y_direction, player_num) {
 	var player_in_row_count = 1;
 	var other_player = 0; 
 
@@ -160,10 +175,10 @@ function count_other_player_in_row(board, row, col, i, j, player_num) {
 	}
 
 	while( true ){
-		if(row + i*player_in_row_count > -1 && row + i*player_in_row_count < board.length &&
-			col + j*player_in_row_count > -1 && col + j*player_in_row_count < board[row].length) {
+		if(row + x_direction*player_in_row_count > -1 && row + x_direction*player_in_row_count < board.length &&
+			col + y_direction*player_in_row_count > -1 && col + y_direction*player_in_row_count < board[row].length) {
 
-			if( board[row + i*player_in_row_count][col + j*player_in_row_count] == other_player){
+			if( board[row + x_direction*player_in_row_count][col + y_direction*player_in_row_count] == other_player){
 				player_in_row_count++;
 			} else {
 				return player_in_row_count - 1;
@@ -174,6 +189,40 @@ function count_other_player_in_row(board, row, col, i, j, player_num) {
 		}
 	}
 	return player_in_row_count - 1;
+}
+
+/*
+	returns number of one player's pieces in a row. 
+
+	inputs: 
+		board:  		gameboard
+		row: 			i value we are starting from
+		col: 			j value we are starting from
+		x_direction: 	direction along rows
+		y_direction: 	direction along columns
+		player_num: 	color pieces we are counting
+
+	output: 
+		number in row
+*/
+function count_player_in_row(board, row, col, x_direction, y_direction, player_num) {
+	var player_in_row_count = 1;
+
+	while( true ){
+		//check if new spot in bounds
+		if(row + x_direction*player_in_row_count > -1 && row + x_direction*player_in_row_count < board.length &&
+			col + y_direction*player_in_row_count > -1 && col + y_direction*player_in_row_count < board[row].length) {
+
+			if( board[row + x_direction*player_in_row_count][col + y_direction*player_in_row_count] == player_num){
+				player_in_row_count++;
+			} else {
+				return player_in_row_count - 1;
+			}
+
+		} else {
+			return player_in_row_count - 1;
+		}
+	}
 }
 
 /*
@@ -211,6 +260,75 @@ function heuristic(gameState, player_num) {
 	}
 
 	return ret_val; 
+}
+
+/*
+	returns object with win conditions 
+		isWin {true or false}
+		winner {1 or 2}
+		reason {"captures" or "five"}
+*/
+function check_for_win(gameState) {
+	if( gameState.human_captures == 5 ) {
+		return {
+			isWin: true,
+			winner: HUMAN_MARKER,
+			reason: "captures"
+		};
+	} else if( gameState.ai_captures == 5 ) {
+		return {
+			isWin: true,
+			winner: AI_MARKER,
+			reason: "captures"
+		};
+	}
+
+	var fiveInRow = is_five_in_row(gameState.board);
+	if( fiveInRow.isFive ) {
+			return {
+				isWin: true,
+				winner: fiveInRow.winner,
+				reason: "five"
+			};
+	}
+
+	return { 
+		isWin: false,
+		winner: EMPTY_MARKER,
+		reason: "none"
+	};
+}
+
+/*
+	returns object with five in row conditions 
+		isFive {true or false}
+		winner {1 or 2}
+*/
+function is_five_in_row(board) {
+	var num_in_row;
+
+	for(var row = 0; row<board.length; row++) {
+		for(var col = 0; col<board[row].length; col++) {
+			for( var x_direction = -1; x_direction<2; x_direction++ ) {
+				for( var y_direction = -1; y_direction<2; y_direction++ ) {
+					if( x_direction != 0 || y_direction != 0 ) {
+						num_in_row = count_player_in_row(board, row, col, x_direction, y_direction, board[row][col]);
+						if( num_in_row >= 5 ) {
+							return {
+								isFive: true,
+								winner: board[row][col]
+							};
+						}
+					} 
+				}
+			}
+		} //end col loop
+	} //end row loop
+
+	return {
+		isFive: false,
+		winner: EMPTY_MARKER
+	};
 }
 
 /*

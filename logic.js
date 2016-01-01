@@ -26,16 +26,7 @@ function make_human_move(row, col) {
 	for( var i = -1; i<2; i++ ) {
 		for( var j = -1; j<2; j++ ) {
 			if( i != 0 || j != 0 ) {
-				if( count_other_player_in_row(gameState.board, row, col, i, j, HUMAN_MARKER) == 2 ) {
-					if( row + 3*i > -1 && row + 3*i < gameState.board.length &&
-						col + 3*j > -1 && col + 3*j < gameState.board[row].length) {
-						if( gameState.board[row + 3*i][col + 3*j] == HUMAN_MARKER ) {
-							gameState.board[row + 2*i][col + 2*j] = EMPTY_MARKER;
-							gameState.board[row + i][col + j] = EMPTY_MARKER;
-							gameState.human_captures++;
-						}
-					}
-				}
+				check_for_and_update_capture(gameState, HUMAN_MARKER, row, col, i, j);
 			}
 		}
 	}
@@ -51,7 +42,7 @@ function make_ai_move() {
 
 	var row;
 	var col;
-	for( var i = 0; i<new_game.board.length; i++) {
+	for( var i = 0; i < new_game.board.length; i++) {
 		for( var j = 0; j<new_game.board[i].length; j++) {
 			if(new_game.board[i][j] != gameState.board[i][j] && new_game.board[i][j] == AI_MARKER) {
 				row = i; 
@@ -60,25 +51,22 @@ function make_ai_move() {
 			}
 		}
 	}
-	console.log("row: " + row + ", col: " + col); 
+	console.log("AI moved here:");
+	console.log("	row: " + row + ", col: " + col); 
 
 	for( var i = -1; i<2; i++ ) {
 		for( var j = -1; j<2; j++ ) {
 			if( i != 0 || j != 0 ) {
-				if( count_other_player_in_row(gameState.board, row, col, i, j, AI_MARKER) == 2 ) {
-					if( row + 3*i > -1 && row + 3*i < gameState.board.length &&
-						col + 3*j > -1 && col + 3*j < gameState.board[row].length) {
-						if( gameState.board[row + 3*i][col + 3*j] == AI_MARKER ) {
-							gameState.board[row + 2*i][col + 2*j] = EMPTY_MARKER;
-							gameState.board[row + i][col + j] = EMPTY_MARKER;
-							gameState.ai_captures++;
-						}
-					}
-				}
+				check_for_and_update_capture(gameState, AI_MARKER, row, col, i, j);
 			}
 		}
 	}
 
 	gameState.board[row][col] = AI_MARKER;
+	var wincheck = check_for_win(gameState);
+	if( wincheck.isWin ) {
+		console.log("Winner: " + wincheck.winner + ", reason: " + wincheck.reason);
+	}
+
 	renderBoard();
 }
