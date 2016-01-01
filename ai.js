@@ -312,12 +312,14 @@ function is_five_in_row(board) {
 			for( var x_direction = -1; x_direction<2; x_direction++ ) {
 				for( var y_direction = -1; y_direction<2; y_direction++ ) {
 					if( x_direction != 0 || y_direction != 0 ) {
-						num_in_row = count_player_in_row(board, row, col, x_direction, y_direction, board[row][col]);
-						if( num_in_row >= 5 ) {
-							return {
-								isFive: true,
-								winner: board[row][col]
-							};
+						if( board[row][col] == 1 || board[row][col] == 1) {
+							num_in_row = count_player_in_row(board, row, col, x_direction, y_direction, board[row][col]);
+							if( num_in_row >= 5 ) {
+								return {
+									isFive: true,
+									winner: board[row][col]
+								};
+							}
 						}
 					} 
 				}
