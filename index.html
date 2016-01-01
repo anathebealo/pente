@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title> Pente </title>
+		<link href='https://fonts.googleapis.com/css?family=Voltaire' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="shortcut icon" href="favicon.ico"/>
+	</head>
+
+	<body style="text-align:center; vertical-align: middle">
+
+		<div id="title" align="center">
+			<small id="noMercy"> No Mercy </small> </br>
+			<div id="penteSpan" style="width: 100%">
+				<span id="pente"> 
+					<b> PENTE </b> 
+				</span>
+			</div>
+			<h3 class="shadow" id="playBtn" > Play </h3>
+		</div>
+
+		<div class="shadow" id="gameboard" >
+			<!-- D3 Will populate -->
+		</div>
+
+	
+		<div id="info" style="z-index: 2; height: 200">
+			<span id="sign" class="glyphicon glyphicon-question-sign"> </span>
+		</div>
+
+		<div id="infoContent" class="shadow" style="z-index: -2" align="center">
+			<a href="http://www.pente.net/instructions.html" target="_blank"> How to play Pente </a>
+			<small>
+				<div id="authors" disabled="true">
+					Made by 
+					<a id="ana" href="http://anabealo.com/" target="_blank"> Ana Bealo </a> 
+					and 
+					<a id="chris" href="http://cdhanna.com/me" target="_blank"> Chris Hanna </a>
+				</div>
+			</small>
+		</div>
+	</body>
+
+	<!-- Deps -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"> </script>
+	<script src="logic.js"> </script>
+	<script src="vis.js"> </script>
+	<script src="js/fancy-lines.js"></script>
+	<script src="ai.js"></script>
+</html>
