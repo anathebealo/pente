@@ -15,8 +15,7 @@ given: target depth
 need to give: location of next move -- x,y coordinate
 
 board has three possible numbers: 0, 1 and 2 -- 0 = unoccupied and 1,2 = player #
-AI is always player 2 ***
-
+AI is always player 2 **
 */
 
 /*
@@ -99,7 +98,7 @@ function find_all_moves_on_board(board, player_num) {
 	var count = 0;
 	for( var i = 0; i<board.length; i++ ) {
 		for( var j = 0; j<board[i].length; j++ ) {
-			if( board[i][j] == 0 ) {
+			if( board[i][j] == EMPTY_MARKER ) {
 				var next_state = copy_array(board);
 				make_move(next_state, player_num, i, j);
 				board_states.push(copy_array(next_state));
@@ -122,8 +121,8 @@ function make_move(board, player_num, row, col) {
 					if( row + 3*i > -1 && row + 3*i < board.length &&
 						col + 3*j > -1 && col + 3*j < board[row].length) {
 						if( board[row + 3*i][col + 3*j] == player_num ) {
-							board[row + 2*i][col + 2*j] = 0;
-							board[row + i][col + j] = 0;
+							board[row + 2*i][col + 2*j] = EMPTY_MARKER;
+							board[row + i][col + j] = EMPTY_MARKER;
 						}
 					}
 				}
