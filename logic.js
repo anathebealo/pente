@@ -48,7 +48,7 @@ function make_human_move(row, col) {
 }
 
 function make_ai_move() {
-	var new_board = find_next_move(gameState.board, 1);
+	var new_board = find_next_move(gameState, 2);
 
 	var row;
 	var col;
