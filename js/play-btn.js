@@ -120,7 +120,12 @@ playBtn
 				human_captures: 0,
 				ai_captures: 0
 			};
-			winMsg.hideMsg()
+			// winMsg.hideMsg()
+			if (WIN.isWin){
+				winMsg.showMsg('Time for another round...')
+			} else {
+				d3.select('.msg-text').text('Lets play again')
+			}
 			WIN = {}
 
 			// cellEaseFunc = easeFunc;

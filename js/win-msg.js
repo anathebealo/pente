@@ -101,6 +101,11 @@ var winMsg = function (){
 	return self;
 }();
 
+setTimeout(function(){
+	winMsg.showMsg('Welcome to Pente')
+	
+}, 1000)
+
 // winMsg.showRedMsg('The Computer Won :(')
 // // winMsg.showRedMsg('The Computer Won :(')
 
