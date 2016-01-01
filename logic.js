@@ -11,28 +11,17 @@ var makeBoard = function(size){
 	return board;
 }
 
-var PLAYER_NUM = 1;
-var AI_NUM = 2;
+//TODO: use marker values from globals.js
+var HUMAN_MARKER = 1; 
+var AI_MARKER = 2;
 
 var boardState = makeBoard();
-
-
-boardState[5][0] = AI_NUM
-boardState[4][0] = AI_NUM
-boardState[3][0] = PLAYER_NUM
-boardState[2][0] = AI_NUM
-boardState[1][0] = AI_NUM
-boardState[0][0] = PLAYER_NUM
-boardState[4][3] = AI_NUM
-boardState[5][3] = AI_NUM
-
-
-var currPlayer = PLAYER_NUM;
+var currPlayer = HUMAN_MARKER;
 
 var getOtherPlayer = function(playerNum){
-	if (playerNum == PLAYER_NUM){
-		return AI_NUM;
-	} else return PLAYER_NUM;
+	if (playerNum == HUMAN_MARKER){
+		return AI_MARKER;
+	} else return HUMAN_MARKER;
 }
 
 var makeMove = function(i, j){
@@ -40,14 +29,14 @@ var makeMove = function(i, j){
 	currPlayer = getOtherPlayer(currPlayer);
 }
 
-function make_human_move(board, player_num, row, col) {
+function make_human_move(board, human_marker, row, col) {
 	for( var i = -1; i<2; i++ ) {
 		for( var j = -1; j<2; j++ ) {
 			if( i != 0 || j != 0 ) {
-				if( count_other_player_in_row(board, row, col, i, j, player_num) == 2 ) {
+				if( count_other_player_in_row(board, row, col, i, j, human_marker) == 2 ) {
 					if( row + 3*i > -1 && row + 3*i < board.length &&
 						col + 3*j > -1 && col + 3*j < board[row].length) {
-						if( board[row + 3*i][col + 3*j] == player_num ) {
+						if( board[row + 3*i][col + 3*j] == human_marker ) {
 							board[row + 2*i][col + 2*j] = 0;
 							board[row + i][col + j] = 0;
 						}
@@ -56,22 +45,22 @@ function make_human_move(board, player_num, row, col) {
 			}
 		}
 	}
-console.log("human made a move!"); 
-	board[row][col] = player_num;
+	console.log("human made a move!"); 
+	board[row][col] = human_marker;
 	print_board(boardState);
 
 	renderBoard();
-	make_ai_move(board, AI_NUM);
+	make_ai_move(board, AI_MARKER);
 }
 
-function make_ai_move(board, player_num) {
+function make_ai_move(board, ai_marker) {
 	var new_board = find_next_move(board, 1);
 
 	var row;
 	var col;
 	for( var i = 0; i<board.length; i++) {
 		for( var j = 0; j<board[i].length; j++) {
-			if(new_board[i][j] != board[i][j] && new_board[i][j] == player_num) {
+			if(new_board[i][j] != board[i][j] && new_board[i][j] == ai_marker) {
 				row = i; 
 				col = j;
 				break;
@@ -83,10 +72,10 @@ function make_ai_move(board, player_num) {
 	for( var i = -1; i<2; i++ ) {
 		for( var j = -1; j<2; j++ ) {
 			if( i != 0 || j != 0 ) {
-				if( count_other_player_in_row(board, row, col, i, j, player_num) == 2 ) {
+				if( count_other_player_in_row(board, row, col, i, j, ai_marker) == 2 ) {
 					if( row + 3*i > -1 && row + 3*i < board.length &&
 						col + 3*j > -1 && col + 3*j < board[row].length) {
-						if( board[row + 3*i][col + 3*j] == player_num ) {
+						if( board[row + 3*i][col + 3*j] == ai_marker ) {
 							board[row + 2*i][col + 2*j] = 0;
 							board[row + i][col + j] = 0;
 						}
@@ -96,7 +85,7 @@ function make_ai_move(board, player_num) {
 		}
 	}
 
-	board[row][col] = player_num;
+	board[row][col] = ai_marker;
 	//boardState = board;
 	print_board(board);
 	renderBoard();

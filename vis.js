@@ -93,10 +93,10 @@ var renderBoard = function(){
 	var getColor = function(d, i, j){
 		var state = getState(d, i, j);
 		var color = '#828282';
-		if (state == PLAYER_NUM){
+		if (state == HUMAN_MARKER){
 			color = 'green';
 		} 
-		if (state == AI_NUM){
+		if (state == AI_MARKER){
 			color = 'red';
 		}
 		return color;
@@ -193,9 +193,9 @@ var renderBoard = function(){
 		})
 		.on('click', function(d, i, j){
 			if (getState(d, i, j) == 0){
-				//boardState[i][j] = PLAYER_NUM;
+				//boardState[i][j] = HUMAN_MARKER;
 				
-				make_human_move(boardState, PLAYER_NUM, i, j);
+				make_human_move(boardState, HUMAN_MARKER, i, j);
 				d3.select(this).transition()
 					.ease("cubic-out")
 					.duration(500)
