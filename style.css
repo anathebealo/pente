@@ -64,9 +64,72 @@ br {
 
 #win {
 	height: 60px;
-	background-color: #D8D8D8;
+	/*background-color: #D8D8D8;*/
 	margin: 12px 0px;
 }
+
+.msg-tip {
+	border-style: solid;
+	height: 0px;
+	width: 0px;
+	background-color: transparent;
+	border-width: 0px;
+	position: relative;
+	display: inline-block;
+
+}	
+
+.msg {
+	background-color: #797979;
+	box-shadow: 0px 0px 4px black, 0px 3px 12px gray;
+	z-index: 2;
+}
+
+.msg-text {
+	font-size: 36px;
+	color: white;
+	text-align: center;
+	width: 100%;
+	left: 0%;
+	position: absolute;
+	margin-top: 6px;
+	font-family: 'Voltaire', sans-serif;
+	cursor: default;
+	text-shadow: 0px 0px 2px black;
+}
+
+.msg-spacer {
+	height: 100%;
+	/*padding-top: 60px;*/
+	width: 10px;
+	background-color: #6B6B6B;
+	position: relative;
+	display: inline-block;
+	/*vertical-align: center;*/
+	z-index: -1;
+}
+
+.msg-tip-left-top {
+	border-left: 30px solid transparent;
+	border-top: 30px solid #6B6B6B;
+	left: 30px;
+}
+
+.msg-tip-left-low {
+	border-left: 30px solid transparent;
+	border-bottom: 30px solid #6B6B6B;
+}
+.msg-tip-right-low {
+	border-right: 30px solid transparent;
+	border-bottom: 30px solid #6B6B6B;
+	left: -30px;
+}
+.msg-tip-right-top {
+	border-right: 30px solid transparent;
+	border-top: 30px solid #6B6B6B;
+}
+
+
 
 .cap-area{
 	width: 0px;
