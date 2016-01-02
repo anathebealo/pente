@@ -41,9 +41,10 @@ function max_value(gameState, depth) {
 		var alpha = Number.NEGATIVE_INFINITY; 
 		var best_board = undefined;
 		var all_games = find_all_moves_on_board(gameState, AI_MARKER);
-		
+		console.log('from max, depth', depth, 'there are ', all_games.length, 'games')
+
 		all_games.forEach(function(next_game){
-			var min_val = min_value(gameState, depth -1);
+			var min_val = min_value(next_game, depth -1);
 			if (min_val.heuristic_val > alpha){
 				alpha = min_val.heuristic_val;
 				best_game = copy_game(next_game);
@@ -98,6 +99,9 @@ function find_all_moves_on_board(gameState, player_num) {
 		for( var j = 0; j<gameState.board[i].length; j++ ) {
 			if( gameState.board[i][j] == EMPTY_MARKER ) {
 				var next_game = copy_game(gameState);
+				// if (i == 3 && j == 2 && player_num == AI_MARKER){
+				// 	console.log('holy cows')
+				// }
 				make_move(next_game, player_num, i, j);
 				game_states.push(copy_game(next_game));
 			}
@@ -243,27 +247,46 @@ function copy_game(gameState) {
 }
 
 
+function get_other_player(player_num){
+	return player_num == AI_MARKER ? HUMAN_MARKER : AI_MARKER;
+}
+
 /*
 	This function outputs a value for the current state of the board. 
 	Higher return values means better board state for the whichever player for whom it is scored.
 */
 function heuristic(gameState, player_num) {
-	if( player_num == HUMAN_MARKER ) {
 
 
-	} else {
+	function rankCell(x, y){
+		if (gameState.board[x][y] == 0) return 0;
 
+		var rank = 0;
 
+		// rank += gameState.board[x][y] == player_num ? 2 : 1; // more of our pieces is good.
+
+		for( var x_direction = -1; x_direction<2; x_direction++ ) {
+			for( var y_direction = -1; y_direction<2; y_direction++ ) {
+				if( x_direction != 0 || y_direction != 0 ) {
+					rank += count_player_in_row(gameState.board, x, y, x_direction, y_direction, get_other_player(player_num))
+					// console.log('rank is ', rank, 'at', x, y)
+					// rank += 2*count_player_in_row(gameState.board, x, y, x_direction, y_direction, player_num)
+					// var next_x = x + x_direction;
+					// var nextY = y + y_direction;
+				}
+			}
+		}
+
+		return rank;
 	}
 
 	var ret_val = 0;
-	if(gameState.board[0][0] == 2) {
-		return 100; 
-	} else if(gameState.board[0][2] == 2) {
-		return 99;
-	} else {
-		ret_val = -100;
+	for (var x = 0; x < gameState.board.length ; x ++){
+		if (gameState.board[x][1] == player_num)
+			ret_val += 200;
 	}
+
+
 
 	return ret_val;
 }
